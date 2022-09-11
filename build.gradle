@@ -16,8 +16,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.mashape.unirest:unirest-java:1.3.1")
-    implementation("math.geom2d:javaGeom:0.11.1")
-
     compileOnly ("org.projectlombok:lombok:1.18.24")
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

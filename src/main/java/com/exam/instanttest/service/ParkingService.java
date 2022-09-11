@@ -11,14 +11,13 @@ import com.exam.instanttest.model.BaseResponse;
 import com.exam.instanttest.model.domain.Parking;
 import com.exam.instanttest.model.domain.Slot;
 import com.exam.instanttest.model.dto.ParkingSlotDTO;
+import com.exam.instanttest.utils.DistanceUtil;
 import com.exam.instanttest.variables.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
-
-import math.geom2d.Point2D;
 
 @Service
 public class ParkingService {
@@ -62,7 +61,7 @@ public class ParkingService {
                 parkingSlotDTO.setCapacity(slot.getCapacity());
                 parkingSlotDTO.setRemainingSlots(slot.getRemainingSlots());
                 parkingSlotDTOs.add(parkingSlotDTO);
-                parkingSlotDTO.setDistance(Point2D.distance(latitude, longitude, parking.getGeometry().getLatitude(),
+                parkingSlotDTO.setDistance(DistanceUtil.calculateDistanceInMeters(latitude, longitude, parking.getGeometry().getLatitude(),
                         parking.getGeometry().getLongitude()));
             }
         });
