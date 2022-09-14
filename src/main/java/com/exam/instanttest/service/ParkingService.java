@@ -23,8 +23,11 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 public class ParkingService {
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @Autowired
     private HttpService httpService;
+
+    public ParkingService(HttpService httpService) {
+        this.httpService = httpService;
+    }
 
     public List<Parking> getParkings() throws UnirestException, JsonMappingException, JsonProcessingException {
         HttpResponse<String> response = httpService.getRequest(Constants.PARKINGS_URL.getUrl(), null);
@@ -61,8 +64,9 @@ public class ParkingService {
                 parkingSlotDTO.setCapacity(slot.getCapacity());
                 parkingSlotDTO.setRemainingSlots(slot.getRemainingSlots());
                 parkingSlotDTOs.add(parkingSlotDTO);
-                parkingSlotDTO.setDistance(DistanceUtil.calculateDistanceInMeters(latitude, longitude, parking.getGeometry().getLatitude(),
-                        parking.getGeometry().getLongitude()));
+                parkingSlotDTO.setDistance(
+                        DistanceUtil.calculateDistanceInMeters(latitude, longitude, parking.getGeometry().getLatitude(),
+                                parking.getGeometry().getLongitude()));
             }
         });
 
